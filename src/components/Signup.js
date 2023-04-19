@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
+
 export default function Signup() {
-  const [ showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
@@ -23,6 +24,18 @@ export default function Signup() {
               Ready to watch? Enter your email to create or restart membership
             </h6>
           </div>
+          <div>
+            <label for="select-user-type" className="label">
+              Please Select Your User Type
+            </label>{" "}
+            <br />
+            <select id="select-user-type" className="dropdown">
+              <option value="USER" className="option">User</option>
+              <option value="BLOGGER">Blogger</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+          </div>
+
           <div className="form">
             <input
               type="email"
@@ -82,9 +95,20 @@ const Container = styled.div`
           padding: 0 25rem;
         }
       }
+      .label {
+        font-size: 0.85rem;
+        font-weight: bold;
+      }
+      .dropdown {
+        height: 50px;
+        width: 100%;
+        font-size: 1.2rem;
+        color: gray;
+      }
       .form {
         display: grid;
-        grid-template-columns: ${({showPassword})=>showPassword ? "1fr 1fr": "2fr 1fr"};        
+        grid-template-columns: ${({ showPassword }) =>
+          showPassword ? "1fr 1fr" : "2fr 1fr"};
         width: 60%;
         input {
           color: black;
