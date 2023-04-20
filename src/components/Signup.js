@@ -1,21 +1,59 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { signupThunk } from "../utils/users-thunks";
 
 export default function Signup() {
+  const [username, setUsername] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [formValues, setFormValues] = useState({
-    email: "",
-    password: "",
-  });
+  // const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userType, setUserType] = useState("");
+  const [error, setError] = useState(null);
+  const { currentUser } = useSelector((state) => state.users);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleRegisterBtn = () => {
+    if (
+      username === "" ||
+      password === "" ||
+      userType === ""
+    ) {
+      setError("Error! Fields below must be filled!");
+      return;
+    }
+    setError(null);
+    console.log("userType is: ", userType);
+    const newUser = { username, password, userType };
+    dispatch(signupThunk(newUser)).then((res) => {
+      console.log(res);
+      if (res.error) {
+        setError("Registration failed! Username already exists!");
+      } else {
+        navigate("/login");
+      }
+    });
+  };
+
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+    if (currentUser || username) {
+      navigate("/profile");
+    }
+  }, [currentUser, navigate]);
 
   return (
     <Container showPassword={showPassword}>
       <BackgroundImage />
       <div className="content">
         <Header login />
+
+        {error && <div className="alert alert-danger">{error}</div>}
+
         <div className="body flex column a-center j-center">
           <div className="text flex column">
             <h1>Unlimited movies, TV shows and more</h1>
@@ -27,10 +65,16 @@ export default function Signup() {
           <div>
             <label for="select-user-type" className="label">
               Please Select Your User Type
-            </label>{" "}
+            </label>
             <br />
-            <select id="select-user-type" className="dropdown">
-              <option value="USER" className="option">User</option>
+            <select
+              id="select-user-type"
+              className="dropdown"
+              onChange={(e, item) => {
+                setUserType(item.value);
+              }}
+            >
+              <option value="USER">User</option>
               <option value="BLOGGER">Blogger</option>
               <option value="ADMIN">Admin</option>
             </select>
@@ -38,36 +82,26 @@ export default function Signup() {
 
           <div className="form">
             <input
-              type="email"
-              placeholder="Email Address"
-              name="email"
-              value={formValues.email}
-              onChange={(e) =>
-                setFormValues({
-                  ...formValues,
-                  [e.target.name]: e.target.value,
-                })
-              }
+              type="username"
+              placeholder="User Name"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
             {showPassword && (
               <input
                 type="password"
                 placeholder="Password"
                 name="password"
-                value={formValues.password}
-                onChange={(e) =>
-                  setFormValues({
-                    ...formValues,
-                    [e.target.name]: e.target.value,
-                  })
-                }
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             )}
             {!showPassword && (
               <button onClick={() => setShowPassword(true)}>Get Started</button>
             )}
           </div>
-          <button>Sign Up</button>
+          <button onClick={handleRegisterBtn}>Sign Up</button>
         </div>
       </div>
     </Container>
@@ -101,7 +135,7 @@ const Container = styled.div`
       }
       .dropdown {
         height: 50px;
-        width: 100%;
+        width: 150%;
         font-size: 1.2rem;
         color: gray;
       }

@@ -58,7 +58,6 @@
 // export default Login;
 
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
@@ -68,8 +67,6 @@ export default function Login() {
     email: "",
     password: "",
   });
-
-  const navigate = useNavigate();
 
   return (
     <Container>
