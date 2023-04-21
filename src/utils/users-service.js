@@ -10,13 +10,14 @@ export const loadSingleUser = async (username) => {
   return response.data;
 };
 
-export const signup = async (user) => {
-  const response = await axios.post(`${BASE_URL}/signup`, user);
-  console.log("res after signup: ", response);
-  const profile_response = await axios.post(profileRoute, 
-                                            {
-                                              username:user.username,
-                                            });
+export const register = async (user) => {
+  const response = await axios.post(`${BASE_URL}/register`, user);
+  console.log("res after register: ", response);
+  const profile_response = await axios.post(profileRoute,
+    {
+      username: user.username,
+      country: user.country
+    });
   console.log("res after creating profile: ", profile_response);
   return response.data;
 };

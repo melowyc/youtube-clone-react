@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginThunk, signupThunk, loadSingleUserThunk } from "./users-thunks";
+import { loginThunk, registerThunk, loadSingleUserThunk } from "./users-thunks";
 
 const usersReducer = createSlice({
   name: "users",
@@ -28,10 +28,10 @@ const usersReducer = createSlice({
       state.error = action.payload;
       state.currentUser = null;
     },
-    [signupThunk.fulfilled]: (state, action) => {
+    [registerThunk.fulfilled]: (state, action) => {
       state.currentUser = action.payload;
     },
-    [signupThunk.rejected]: (state, action) => {
+    [registerThunk.rejected]: (state, action) => {
       state.error = action.payload;
       state.currentUser = null;
     },

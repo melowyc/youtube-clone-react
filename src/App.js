@@ -1,32 +1,70 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { Box } from '@mui/material';
+// import logo from './logo.svg';
+import "./App.css";
 
-import { ChannelDetail, VideoDetail, SearchFeed, Navbar, Feed, Login, Signup } from './components';
+import { Route, Routes } from "react-router-dom";
+import { Box } from "@mui/material";
 
-const App = () => {
-  const location = useLocation();
-  const isLoginPage = location.pathname === '/login';
-  const isSignUpPage = location.pathname === '/signup';
+import "bootstrap/scss/bootstrap.scss";
+import "./assets/scss/paper-kit.scss?v=1.3.0";
+import "./assets/demo/demo.css?v=1.3.0";
 
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import Navbar from "./components/VideoPart/Navbar";
+import Footer from "./components/Footer/Footer";
+import Register from "./components/RegisterAndLogin/register";
+import Login from "./components/RegisterAndLogin/login";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import usersReducer from "./utils/users-reducer";
+import ProtectedRoute from "./utils/ProtectedRoute";
+import profileReducer from "./utils/profile-reducer";
+import planReducer from "./utils/plan-reducer";
+import progressReducer from "./utils/progress-reducer";
+import ExerciseDetail from "./pages/ExerciseDetail";
+import VideoDetail from "components/VideoPart/VideoDetail";
+import ChannelDetail from "components/VideoPart/ChannelDetail";
+import SearchFeed from "components/VideoPart/SearchFeed";
+
+const store = configureStore({
+  reducer: {
+    users: usersReducer,
+    profile: profileReducer,
+    plans: planReducer,
+    progress: progressReducer,
+  },
+});
+function App() {
   return (
-    <Box sx={{ backgroundColor: '#000' }}>
-      {!isLoginPage && !isSignUpPage && <Navbar />}
-      <Routes>
-        <Route exact path='/' element={<Feed />} />
-        <Route path='/video/:id' element={<VideoDetail />} />
-        <Route path='/channel/:id' element={<ChannelDetail />} />
-        <Route path='/search/:searchTerm' element={<SearchFeed />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-      </Routes>
-    </Box>
+    <Provider store={store}>
+      <Box
+        width="400px"
+        sx={{ width: { xl: "1488px" } }}
+        m="auto"
+        className={"m-0 w-100"}
+      >
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/exercise/:id" element={<ExerciseDetail />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route path='/video/:id' element={<VideoDetail />} />
+          <Route path='/channel/:id' element={<ChannelDetail />} />
+          <Route path='/search/:searchTerm' element={<SearchFeed />} />
+        </Routes>
+        <Footer />
+      </Box>
+    </Provider>
   );
-};
+}
 
-const Root = () => (
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-);
-
-export default Root;
+export default App;
