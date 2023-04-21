@@ -10,6 +10,8 @@ import { profileRoute } from "../../utils/APIRoutes";
 const Feed = () => {
     const [selectedCategory, setSelectedCategory] = useState("New");
     const [videos, setVideos] = useState(null);
+    const [selectedCategoryKid, setSelectedCategoryKid] = useState("Education");
+    const [kidVideos, setKidVideos] = useState(null);
     const [likes, setLikes] = useState([]);
     const [loginStatus, setLoginStatus] = useState("true");
     const username = localStorage.getItem("username");
@@ -76,6 +78,8 @@ const Feed = () => {
 
         fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
             .then((data) => setVideos(data.items))
+        fetchFromAPI(`search?part=snippet&q=${selectedCategoryKid}`)
+            .then((data) => setKidVideos(data.items))
         if (username != null){
             fetchLikedData(username);
         } else {
@@ -102,7 +106,7 @@ const Feed = () => {
         <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
             <Box sx={{ height: { sx: "auto", md: "92vh" }, borderRight: "1px solid #3d3d3d", px: { sx: 0, md: 2 } }}>
                 { kid ?
-                    <SidebarKid selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+                    <SidebarKid selectedCategory={selectedCategoryKid} setSelectedCategory={setSelectedCategoryKid} />
                 :
                     <Sidebar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
                 }
@@ -113,15 +117,30 @@ const Feed = () => {
             </Box>
 
             <Box p={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
-                <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "black" }}>
+                {kid ?
+                    <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "black" }}>
+                        {selectedCategoryKid} <span style={{ color: "#FC1503" }}>videos</span>
+                    </Typography>
+                    :
+                    <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "black" }}>
                     {selectedCategory} <span style={{ color: "#FC1503" }}>videos</span>
-                </Typography>
+                    </Typography>
+                }
+                {kid ?
+                    <Videos videos={kidVideos}
+                        loginStatus={loginStatus}
+                        addLikedVideo={addLikedVideo}
+                        removeLikedVideo={removeLikedVideo}
+                        likes={likes} />
+                    :
+                    <Videos videos={videos}
+                        loginStatus={loginStatus}
+                        addLikedVideo={addLikedVideo}
+                        removeLikedVideo={removeLikedVideo}
+                        likes={likes} />
+                }
 
-                <Videos videos={videos}
-                    loginStatus={loginStatus}
-                    addLikedVideo={addLikedVideo}
-                    removeLikedVideo={removeLikedVideo}
-                    likes={likes} />
+
             </Box>
         </Stack>
     );
