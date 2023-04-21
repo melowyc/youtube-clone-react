@@ -10,6 +10,7 @@ import { useState } from "react";
 
 const VideoCard = ({ video: { id: { videoId }, snippet }, loginStatus, addLikedVideo, removeLikedVideo, liked }) => {
     const [like, setLike] = useState(liked);
+    const username = localStorage.getItem("username")
     // console.log(videoId+like);
     // console.log(loginStatus);
     // console.log(snippet);
@@ -48,7 +49,7 @@ const VideoCard = ({ video: { id: { videoId }, snippet }, loginStatus, addLikedV
                     <CheckCircleIcon sx={{ fontSize: "12px", color: "gray", ml: "5px" }} />
                 </Typography>
             </Link>
-                {loginStatus ?
+                {username ?
                     <>
                         <Button
                             sx={{ ml: '21px', color: 'red', fontSize: "30px", textTransform: 'capitalize' }}
