@@ -17,6 +17,7 @@ const Navbar = () => {
   const logOutBtnHandler = () => {
     localStorage.clear();
     dispatch(logout());
+    window.location.reload();
     navigate("/login");
   };
 
