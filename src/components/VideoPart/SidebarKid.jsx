@@ -4,6 +4,8 @@ import { Stack } from "@mui/material";
 import { categories } from "../../utils/constants";
 
 const Categories = ({ selectedCategory, setSelectedCategory }) => {
+    const categoryEdu = categories.filter((item) => item.name === 'Education')
+    console.log(categoryEdu)
     
     return(
     <Stack
@@ -14,7 +16,7 @@ const Categories = ({ selectedCategory, setSelectedCategory }) => {
             flexDirection: { md: "column" },
         }}
     >
-        {categories.map((category) => (
+        {categoryEdu.map((category) => (
             <button
                 className="category-btn"
                 onClick={() => setSelectedCategory(category.name)}

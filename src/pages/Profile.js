@@ -30,6 +30,8 @@ const Profile = () => {
         try {
             const response = await fetch(getUser + '/' + username, { mode: 'cors' });
             const data = await response.json();
+            console.log("country data"+data.userType);
+            localStorage.setItem("userType", data.userType);
             setCountry(data.country);
             dispatch(updateProfile({country: data.country}))
         } catch (e) {
@@ -51,11 +53,12 @@ const Profile = () => {
   return (
       <div className={`container border border-light border-2 page-bg`}>
           <div className={`row`}>
-            <div className={`col-12 col-xl-8 col-xxl-8 p-0`}>
-                {country && profile && <ProfileDashboard login={login}/>}
+            <div className={`col-5 col-xl-5 col-xxl-5 p-0`}>
+                  {country && profile && <ProfileSidebar login={login} country={country} />}
             </div>
             <div className={`col d-none d-xl-block p-0`}>
-                {country && profile && <ProfileSidebar login={login} country={country}/>}
+                
+                  {country && profile && <ProfileDashboard login={login} />}
             </div>
           </div>
       </div>

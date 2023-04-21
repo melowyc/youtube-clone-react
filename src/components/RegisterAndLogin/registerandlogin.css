@@ -1,21 +1,21 @@
 .d-auth {
     /* margin: 3rem auto; */
     width: 80%;
-    align-content: center;
+    /* align-content: center; */
     border-radius: 6px;
-    background-color: #088b6d;
+    background-color: #f2dcd8;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     padding: 2rem;
     text-align: center;
     color: white;
-    background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp');
+    /* background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp'); */
 }
 
 .d-auth h1 {
     text-align: center;
-    color: #088b6d;
+    color: #d02b11;
     font-weight: bolder;
-    text-shadow: #393b3b;
+    text-shadow: #94270c;
 }
 
 .d-control {
@@ -24,7 +24,7 @@
 
 .d-control label {
     display: block;
-    color: #3d5d5d;
+    color: #e05c30;
     font-weight: 520;
     margin-bottom: 0.5rem;
     font-size: 14px;
@@ -34,7 +34,7 @@
 .d-control-input {
     font: inherit;
     background-color: #f1e1fc;
-    color: #088b6d;
+    color: #d44f34;
     border-radius: 4px;
     border: 1px solid white;
     width: 100%;
@@ -54,22 +54,22 @@
     font: inherit;
     color: white;
     font-weight: bolder;
-    background-color: rgb(114, 172, 168);
-    border: 1px solid #04958c;
+    background-color: rgb(189, 88, 57);
+    border: 1px solid #df4c35;
     border-radius: 4px;
     padding: 0.5rem 2.5rem;
 }
 
 .d-actions-button:hover {
-    background-color: #076063;
-    border-color: #076063;
+    background-color: #da4029;
+    border-color: #d14c1c;
 }
 
 .d-actions-toggle {
     text-decoration: none;
     margin-top: 1rem;
     background-color: transparent;
-    color: #393b3b;
+    color: #dc5025;
     border: none;
     padding: 0.15rem 1.5rem;
 }
@@ -88,7 +88,7 @@
 .d-img {
     border-image-width: 90%;
     width: 90%;
-    background-color: #088b6d;
+    background-color: #bd5643;
 
 
 }
