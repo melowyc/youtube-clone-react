@@ -10,6 +10,10 @@ import {MdOutlineDriveFolderUpload} from "react-icons/md";
 import {planProgress} from '../../utils/APIRoutes';
 import { useSelector, useDispatch } from 'react-redux';
 import { initializeProgress } from '../../utils/progress-reducer';
+// import { Box } from "@mui/material";
+// import Videos from "../VideoPart/Videos";
+// import { profileRoute } from "../../utils/APIRoutes";
+// import { fetchFromAPI } from "../../utils/fetchFromAPI";
 
 const ProfileDashboard = ({login}) => {
     const profile = useSelector(state => state.profile)
@@ -24,6 +28,9 @@ const ProfileDashboard = ({login}) => {
 
     const CategoryToId = {"RUNNING": 0 , "BOXING": 1, "YOGA": 2, "SWIMMING": 3 }
     const progress = new Array(4).fill(0)
+    // const [likes, setLikes] = useState([]);
+    // const [videos, setVideos] = useState(null);
+    // const username = localStorage.getItem("username");
 
     const getProgressFromDB = async () => {
         try {
@@ -140,13 +147,17 @@ const ProfileDashboard = ({login}) => {
       )}
 
       <PersonalPlan login={login}/>
+      {/* <Box p={2} display="flex">
+        <Box sx={{ mr: { sm: '100px' } }} />
+        <Videos videos={videos} />
+      </Box> */}
       <div className={`row mt-4`}>
           <div className={'col'}>
               <LikedExercise/>
           </div>
-          <div className={'col'}>
+          {/* <div className={'col'}>
               <Activity/>
-          </div>
+          </div> */}
       </div>
     </div>
   );

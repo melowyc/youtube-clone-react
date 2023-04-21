@@ -20,22 +20,22 @@ const Register = () => {
   const dispatch = useDispatch();
   const userTypeOptions = [
     {
-      key: "Student",
-      text: "Student",
-      value: "STUDENT",
+      key: "Adult",
+      text: "Adult",
+      value: "ADULT",
       image: { avatar: true, src: "/images/avatar/student.jpg" },
     },
     {
-      key: "Fitness trainer/Gym coach",
-      text: "Fitness trainer/Gym coach",
-      value: "PRO",
-      image: { avatar: true, src: "/images/avatar/pro.jpg" },
+      key: "Kid",
+      text: "Kid",
+      value: "KID",
+      image: { avatar: true, src: "/images/avatar/admin.png" },
     },
     {
       key: "Admin",
       text: "Admin",
       value: "ADMIN",
-      image: { avatar: true, src: "/images/avatar/admin.png" },
+      image: { avatar: true, src: "/images/avatar/pro.jpg" },
     },
   ];
   COUNTRY_OPTIONS.map((option) => {
@@ -88,6 +88,7 @@ const Register = () => {
     <>
       <div className="container d-flex justify-content-center mt-5">
         <div className="row d-auth m-0">
+          <div className="col-2"></div>
           <div className="col">
             <h1>Register</h1>
             {error && <div className="alert alert-danger">{error}</div>}
@@ -248,7 +249,7 @@ const Register = () => {
             </div>
             {currentUser && <h2>Welcome {currentUser.username}</h2>}
           </div>
-          <div className="col-5"></div>
+          <div className="col-2"></div>
         </div>
       </div>
     </>

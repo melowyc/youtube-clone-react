@@ -34,6 +34,7 @@ const Login = () => {
       }
     });
   };
+
   useEffect(() => {
     const username = localStorage.getItem("username");
     if (currentUser || username) {
@@ -45,6 +46,7 @@ const Login = () => {
     <>
       <div className="container d-flex justify-content-center mt-5">
         <div className="row d-auth m-0">
+          <div className="col-2"></div>
           <div className="col">
             {!currentUser && <h1>Login</h1>}
             {error && <div className="alert alert-danger">{error}</div>}
@@ -96,7 +98,7 @@ const Login = () => {
             )}
             {currentUser && <h2>Welcome {currentUser.username}</h2>}
           </div>
-          <div className="col-6"></div>
+          <div className="col-2"></div>
         </div>
       </div>
     </>
