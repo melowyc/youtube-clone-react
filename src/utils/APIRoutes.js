@@ -6,3 +6,4 @@ export const getPlanRoute = `${host}/api//userPlan`;
 export const planProgress = `${host}/api/progress`;
 export const getUser = `${host}/api/users`;
 export const getLikedExercise = `${host}/api/userExercise`;
+export const videoRoute = `${host}/api/videos`;
