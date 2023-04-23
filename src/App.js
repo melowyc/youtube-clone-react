@@ -25,6 +25,7 @@ import ExerciseDetail from "./pages/ExerciseDetail";
 import VideoDetail from "components/VideoPart/VideoDetail";
 import ChannelDetail from "components/VideoPart/ChannelDetail";
 import SearchFeed from "components/VideoPart/SearchFeed";
+import AdminManage from "components/AdminManage";
 
 const store = configureStore({
   reducer: {
@@ -60,6 +61,7 @@ function App() {
           <Route path='/video/:id' element={<VideoDetail />} />
           <Route path='/channel/:id' element={<ChannelDetail />} />
           <Route path='/search/:searchTerm' element={<SearchFeed />} />
+          <Route path='/admin' element={<AdminManage />} />
         </Routes>
         <Footer />
       </Box>
