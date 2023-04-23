@@ -25,6 +25,8 @@ import progressReducer from "./utils/progress-reducer";
 import VideoDetail from "components/VideoPart/VideoDetail";
 import ChannelDetail from "components/VideoPart/ChannelDetail";
 import SearchFeed from "components/VideoPart/SearchFeed";
+import AdminManage from "components/AdminManage";
+import SearchPage from "components/VideoPart/SearchPage";
 
 const store = configureStore({
   reducer: {
@@ -34,7 +36,9 @@ const store = configureStore({
     progress: progressReducer,
   },
 });
+
 function App() {
+  
   return (
     <Provider store={store}>
       <Box
@@ -69,6 +73,8 @@ function App() {
           <Route path='/video/:id' element={<VideoDetail />} />
           <Route path='/channel/:id' element={<ChannelDetail />} />
           <Route path='/search/:searchTerm' element={<SearchFeed />} />
+          <Route path='/admin' element={<AdminManage />} />
+          <Route path='/search' element={<SearchPage />} />
         </Routes>
         <Footer />
       </Box>
