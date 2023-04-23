@@ -14,19 +14,6 @@
     top: 30%;
     right:5%;
 }
-
 .text-white {
     color: white;
-}
-
-.admin_button {
-    padding: 0.5rem 1rem;
-    background-color: #e50914;
-    border: none;
-    cursor: pointer;
-    color: white;
-    border-radius: 0.2rem;
-    font-weight: bolder;
-    font-size: 0.95rem;
-
 }

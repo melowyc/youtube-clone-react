@@ -30,7 +30,8 @@ const Login = () => {
         );
       } else {
         localStorage.setItem("username", username);
-        navigate("/profile");
+        navigate(`/profile/${username}`);
+        console.log(`/profile/${username}`)
       }
     });
   };
@@ -38,7 +39,7 @@ const Login = () => {
   useEffect(() => {
     const username = localStorage.getItem("username");
     if (currentUser || username) {
-      navigate("/profile");
+      navigate(`/profile/${username}`);
     }
   }, [currentUser, navigate]);
 

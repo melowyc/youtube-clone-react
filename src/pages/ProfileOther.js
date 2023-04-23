@@ -1,31 +1,37 @@
 import React, {useEffect, useState} from 'react'
-import ProfileSidebar from '../components/ProfileSidebar'
-import ProfileDashboard from '../components/ProfileDashboard'
+import ProfileSidebarOther from '../components/ProfileSidebarOther'
+import ProfileDashboardOther from '../components/ProfileDashboardOther'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css'
 import {profileRoute, getUser} from "../utils/APIRoutes";
 import { useDispatch } from 'react-redux';
-import { updateProfile } from '../utils/profile-reducer';
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
-const Profile = () => {
+const ProfileOther = () => {
     const local_username = localStorage.getItem('username');
+    const { currentUsername } = useParams();
     const dispatch = useDispatch();
-    const [profile, setProfile] = useState(null)
+    const [profile, setProfile] = useState({})
     const [country, setCountry] = useState(null)
     const [login, setLogin] = useState(false)
+    const navigate = useNavigate();
 
     const fetchUserProfile = async (username) => {
         try {
             const response = await fetch(profileRoute + '/' + username, { mode: 'cors' });
             const data = await response.json();
             setProfile(data);
-            console.log(response.url)
-            console.log("local response" + response);
-            console.log(response);
-            console.log("local data" + data);
-            console.log(data);
-            dispatch(updateProfile(data))
+          console.log(response.url)
+          console.log("local response" + response);
+          console.log(response);
+          console.log("local data" + data);
+          console.log(data);
+          console.log("local profile" + profile);
+          console.log(profile);
+
+          
         } catch (e) {
             console.log(e);
         }
@@ -35,45 +41,40 @@ const Profile = () => {
         try {
             const response = await fetch(getUser + '/' + username, { mode: 'cors' });
             const data = await response.json();
-            console.log("local response" + response);
-            console.log(response);
-            console.log("local data" + data);
-            console.log(data);
-            console.log("country data"+data.userType);
-            localStorage.setItem("userType", data.userType);
             setCountry(data.country);
-            console.log("localdata.country"+data.country)
-            dispatch(updateProfile({country: data.country}))
+            console.log(data.country)
         } catch (e) {
             console.log(e);
         }
     }
   useEffect(() => {
-    if (!local_username) {
-      setProfile({});
-      setLogin(false);
-    } else {
-      console.log("local username:", local_username);
-      setLogin(true);
-      fetchUserProfile(local_username);
-      fetchUserCountry(local_username);
+    fetchUserProfile(currentUsername);
+    console.log('currentUserProfile'+profile)
+    console.log(profile)
+    fetchUserCountry(currentUsername);
+    // if (!profile.username) {
+    //   console.log("No that other user, redirect to home page!")
+    //   navigate("/");
+    // }
+    if (local_username === currentUsername){
+        
+        navigate("/profile");
     }
-    console.log("localProfile" + profile)
   }, [local_username]);
 
   return (
     <div className={`container border border-light border-2 page-bg`}>
         <div className={`row`}>
             <div className={`col-5 col-xl-5 col-xxl-5 p-0`}>
-                  {country && profile && <ProfileSidebar login={login} country={country} />}
+                  {country && profile && <ProfileSidebarOther profileData = {profile} login={login} country={country} />}
             </div>
             <div className={`col d-none d-xl-block p-0`}>
 
-                  {country && profile && <ProfileDashboard login={login} />}
+          {country && profile && <ProfileDashboardOther profileData={profile} login={login} />}
             </div>
         </div>
     </div>
   );
 };
 
-export default Profile;
+export default ProfileOther;

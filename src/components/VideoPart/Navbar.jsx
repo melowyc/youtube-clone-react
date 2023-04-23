@@ -5,8 +5,12 @@ import "./index.css";
 import { useLocation, useNavigate } from "react-router";
 import { logout } from "../../utils/users-reducer";
 import { useDispatch } from "react-redux";
+
+import zIndex from "@mui/material/styles/zIndex";
+
 import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
+
 
 
 const Navbar = () => {
@@ -30,6 +34,7 @@ const Navbar = () => {
     }
   }, []);
 
+
   return (
     <Stack
       direction="row"
@@ -44,6 +49,7 @@ const Navbar = () => {
     >
       <Link to="/" style={{ display: "flex", alignItems: "center" }}>
         <img src={logo} alt="logo" height={45} />
+
       </Link>
       {login && (
         <Link to="/search">
