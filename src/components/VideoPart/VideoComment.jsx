@@ -14,7 +14,7 @@ const VideoComment = ({ comments }) => {
             </Typography>
           </Link>
           <Typography variant={{ sm: "body1", md: "body1" }} p={6} color="#000">
-            {oneComment.comment}
+            {oneComment.commentContent}
           </Typography>
         </div>
       ))}

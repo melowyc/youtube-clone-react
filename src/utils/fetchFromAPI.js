@@ -32,7 +32,7 @@ export const getVideoComment = async (videoId) => {
             timeout: 5000 // Set a timeout to prevent the request from hanging indefinitely
         });
         console.log("got video data: ", response);
-        return response.data.comments;
+        return response.data;
 
     } catch (error) {
         console.log("error getting video data: ", error);
@@ -41,7 +41,7 @@ export const getVideoComment = async (videoId) => {
 }
 
 export const addVideoComment = async (videoId, videoComment) => {
-    const addVideoCommentUrl = `${videoRoute}/${videoId}/updatecomments`;
+    const addVideoCommentUrl = `${videoRoute}/${videoId}/addcomment`;
     console.log("adding video comment", videoComment,  " using url: ", addVideoCommentUrl)
 
     try {
