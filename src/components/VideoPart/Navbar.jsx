@@ -6,6 +6,7 @@ import "./index.css";
 import { useLocation, useNavigate } from "react-router";
 import { logout } from "../../utils/users-reducer";
 import { useDispatch } from "react-redux";
+import zIndex from "@mui/material/styles/zIndex";
 
 
 const Navbar = () => {
@@ -32,6 +33,7 @@ const Navbar = () => {
       background: "white",
       top: 0,
       justifyContent: "space-between",
+      zIndex:9999
     }}
   >
     <Link to="/" style={{ display: "flex", alignItems: "center" }}>
@@ -109,11 +111,13 @@ const Navbar = () => {
           margin: "30px"
         }}
         className={
-          path === "/profile" ? "fw-bold header-item active" : "fw-bold header-item"
+          path === `/profile` ? "fw-bold header-item active" : "fw-bold header-item"
         }
-        to="/profile"
+          to= "/profile"
       >
-        Profile
+          <button className="login_button">
+            Profile
+          </button>
       </Link>
     ) : (
       ""

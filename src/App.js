@@ -10,6 +10,7 @@ import "./assets/demo/demo.css?v=1.3.0";
 
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import ProfileOther from "./pages/ProfileOther";
 import Navbar from "./components/VideoPart/Navbar";
 import Footer from "./components/Footer/Footer";
 import Register from "./components/RegisterAndLogin/register";
@@ -21,7 +22,6 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import profileReducer from "./utils/profile-reducer";
 import planReducer from "./utils/plan-reducer";
 import progressReducer from "./utils/progress-reducer";
-import ExerciseDetail from "./pages/ExerciseDetail";
 import VideoDetail from "components/VideoPart/VideoDetail";
 import ChannelDetail from "components/VideoPart/ChannelDetail";
 import SearchFeed from "components/VideoPart/SearchFeed";
@@ -48,8 +48,17 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/exercise/:id" element={<ExerciseDetail />} />
           <Route
+            path="/profile/:currentUsername"
+            // path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfileOther />
+             </ProtectedRoute>
+            }
+          />
+          <Route
+            // path="/profile/:currentUsername"
             path="/profile"
             element={
               <ProtectedRoute>
