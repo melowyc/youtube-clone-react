@@ -8,7 +8,7 @@ const VideoComment = ({ comments }) => {
     <div>
       {comments.map((oneComment) => (
         <div>
-          <Link to={`/`}>
+          <Link to={`/profile/${oneComment.userName}`}>
             <Typography variant="body1" color="#000" fontWeight="bold" p={2}>
               {oneComment.userName}
             </Typography>
