@@ -32,6 +32,8 @@ const VideoDetail = () => {
       videoID: id,
     };
     const response = addVideoComment(id, commentToAdd);
+    setComments([...comments, commentToAdd]);
+    setNewComment("");
   };
 
   const fetchLikedData = async (username) => {
@@ -167,6 +169,7 @@ const VideoDetail = () => {
                   name="country"
                   type="text"
                   placeholder="leave your comment"
+                  value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                 />
               </label>
