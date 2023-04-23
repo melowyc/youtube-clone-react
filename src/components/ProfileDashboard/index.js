@@ -4,56 +4,71 @@ import "./index.css";
 import PersonalPlan from "../PersonalPlan";
 import LikedExercise from "../LikedExercise";
 import Activity from "../Activity";
-import {FiEdit} from "react-icons/fi";
-import {Button} from "@mui/material";
-import {MdOutlineDriveFolderUpload} from "react-icons/md";
-import {planProgress} from '../../utils/APIRoutes';
-import { useSelector, useDispatch } from 'react-redux';
-import { initializeProgress } from '../../utils/progress-reducer';
+import { FiEdit } from "react-icons/fi";
+import { Button } from "@mui/material";
+import { MdOutlineDriveFolderUpload } from "react-icons/md";
+import { planProgress } from "../../utils/APIRoutes";
+import { useSelector, useDispatch } from "react-redux";
+import { initializeProgress } from "../../utils/progress-reducer";
+import { Link } from "react-router-dom";
 // import { Box } from "@mui/material";
 // import Videos from "../VideoPart/Videos";
 // import { profileRoute } from "../../utils/APIRoutes";
 // import { fetchFromAPI } from "../../utils/fetchFromAPI";
 
-const ProfileDashboard = ({login}) => {
-    const profile = useSelector(state => state.profile)
-    let newDate = new Date()
-    let date = newDate.getDate();
-    let month = newDate.getMonth();
-    let year = newDate.getFullYear();
-    const dispatch = useDispatch();
-    const monthList = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',' November', 'December']
-    const [upload, setUpload] = useState(false)
-    const [file, setFile] = useState(profile.banner)
+const ProfileDashboard = ({ login }) => {
+  const profile = useSelector((state) => state.profile);
+  let newDate = new Date();
+  let date = newDate.getDate();
+  let month = newDate.getMonth();
+  let year = newDate.getFullYear();
+  const dispatch = useDispatch();
+  const monthList = [
+    "January",
+    "Feburary",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    " November",
+    "December",
+  ];
+  const [upload, setUpload] = useState(false);
+  const [file, setFile] = useState(profile.banner);
 
-    const CategoryToId = {"RUNNING": 0 , "BOXING": 1, "YOGA": 2, "SWIMMING": 3 }
-    const progress = new Array(4).fill(0)
-    // const [likes, setLikes] = useState([]);
-    // const [videos, setVideos] = useState(null);
-    // const username = localStorage.getItem("username");
+  const CategoryToId = { RUNNING: 0, BOXING: 1, YOGA: 2, SWIMMING: 3 };
+  const progress = new Array(4).fill(0);
+  // const [likes, setLikes] = useState([]);
+  // const [videos, setVideos] = useState(null);
+  // const username = localStorage.getItem("username");
 
-    const getProgressFromDB = async () => {
-        try {
-            const response = await fetch(planProgress + '/' + profile.username, { mode: 'cors' });
-            const data = await response.json();
-            console.log("progress data: ", data)
-            return data;
-
-        } catch (e) {
-            console.log(e);
-            return null;
-        }
+  const getProgressFromDB = async () => {
+    try {
+      const response = await fetch(planProgress + "/" + profile.username, {
+        mode: "cors",
+      });
+      const data = await response.json();
+      console.log("progress data: ", data);
+      return data;
+    } catch (e) {
+      console.log(e);
+      return null;
     }
+  };
 
-    const getProgress = async () => {
-        const progresses = await getProgressFromDB();
-        let updatedProgress = [...progress]
-        for (let i = 0; i < progresses.length; i++) {
-            const id = CategoryToId[progresses[i].category]
-            updatedProgress[id] += 1
-        }
-        dispatch(initializeProgress(updatedProgress))
-    };
+  const getProgress = async () => {
+    const progresses = await getProgressFromDB();
+    let updatedProgress = [...progress];
+    for (let i = 0; i < progresses.length; i++) {
+      const id = CategoryToId[progresses[i].category];
+      updatedProgress[id] += 1;
+    }
+    dispatch(initializeProgress(updatedProgress));
+  };
 
   const hiddenFileInput = React.useRef(null);
   const handleChange = (event) => {
@@ -71,6 +86,10 @@ const ProfileDashboard = ({login}) => {
   useEffect(() => {
     getProgress();
   }, []);
+
+  const userType = localStorage.getItem("userType");
+  const isAdmin = userType === "ADMIN";
+
 
   return (
     <div className={"p-4"}>
@@ -152,13 +171,19 @@ const ProfileDashboard = ({login}) => {
         <Videos videos={videos} />
       </Box> */}
       <div className={`row mt-4`}>
-          <div className={'col'}>
-              <LikedExercise/>
-          </div>
-          {/* <div className={'col'}>
-              <Activity/>
-          </div> */}
+        <div className={"col"}>
+          <LikedExercise />
+        </div>
       </div>
+
+      {isAdmin && (
+        <div>
+          <h5 className="mt-3">Manage Uesrs Accounts</h5>
+          <Link to="/admin">
+            <button className="admin_button">Manage Uesrs Accounts</button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
