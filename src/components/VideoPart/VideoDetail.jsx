@@ -13,7 +13,6 @@ import {
   addVideoComment,
 } from "../../utils/fetchFromAPI";
 import { profileRoute } from "../../utils/APIRoutes";
-import axios from "axios";
 
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
@@ -22,8 +21,8 @@ const VideoDetail = () => {
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
   let [newComment, setNewComment] = useState("");
-  const [loginStatus, setLoginStatus] = useState("true");
-  const username = localStorage.getItem("username");
+  const [loginStatus, setLoginStatus] = useState("true"); // not useful!
+  const username = localStorage.getItem("username"); // null if not logged in
 
   const commentClickHandler = () => {
     const commentToAdd = {
@@ -159,7 +158,7 @@ const VideoDetail = () => {
             <Typography color="#000" variant="h5" fontWeight="bold" p={2}>
               Comments
             </Typography>
-            <div style={{ margin: "30px" }}>
+            {username && <div style={{ margin: "30px" }}>
               <label
                 className={`d-flex justify-content-left align-items-center mt-2 mb-2`}
               >
@@ -179,7 +178,8 @@ const VideoDetail = () => {
               >
                 Comment!
               </button>
-            </div>
+            </div>}
+            
             <VideoComment comments={comments} />
           </Box>
         </Box>
