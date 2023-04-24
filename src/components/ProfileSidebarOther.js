@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import PersonalInfoOther from './PersonalInfoOther/index'
 import '../App.css'
 import { profileRoute } from "../utils/APIRoutes";
+import { useSelector } from 'react-redux';
 
-const ProfileSidebarOther = ({profileData, login, country}) => {
-  const [follows, setFollows] = useState(profileData.follows);
+const ProfileSidebarOther = ({profileData}) => {
+  const profile = useSelector((state) => state.profile);
+  const [follows, setFollows] = useState(profile.follows);
   const local_username = localStorage.getItem("username");
-  const [follow, setFollow] = useState(false);
+  const [iffollowed, setIffollowed] = useState(false);
 
   const fetchFollowData = async (username) => {
     try {
@@ -14,9 +16,11 @@ const ProfileSidebarOther = ({profileData, login, country}) => {
       const data = await response.json();
       setFollows(data.follows);
       console.log("fetch follows"+username)
-      console.log(follows)
-      const follow = await (follows.filter((val, id) => val.username === profileData.username)).length > 0
-      setFollow(follow)
+      console.log(data.follows)
+      console.log(profileData.username)
+      const followw = await (data.follows.filter((val, id) => val.username === profileData.username)).length > 0
+      setIffollowed(followw)
+      console.log(followw)
     } catch (e) {
       console.log(e);
     }
@@ -85,8 +89,8 @@ const ProfileSidebarOther = ({profileData, login, country}) => {
     <PersonalInfoOther className={`page-bg`} profileData={profileData} 
     followHandler={followHandler}
     unfollowHandler={unfollowHandler}
-      follow={follow}
-    login={login} country_={country}/>
+      iffollowed={iffollowed}
+    />
   )
 }
 
