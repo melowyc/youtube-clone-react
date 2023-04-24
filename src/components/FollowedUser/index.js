@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 const FollowedUser = () => {
     const {follows} = useSelector(state => state.profile);
+    console.log(follows)
 
     return (
         <div>
@@ -22,7 +23,7 @@ const FollowedUser = () => {
 
                 </div>
                 {follows.map((follow) => (
-                        <LikedItem key={follow.id} follow={follow}/>
+                        <LikedItem key={follow._id} follow={follow}/>
                     ))}
             </div>
 

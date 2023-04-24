@@ -3,18 +3,12 @@ import React, {useState} from 'react'
 import './index.css'
 import { useSelector } from 'react-redux';
 
-const PersonalInfoItemOther = ({profileData, info, edit, setProfile}) => {
+const PersonalInfoItemOther = ({profileData, info}) => {
     const profile = profileData
     const key = (info.columnName.charAt(0).toLowerCase() + info.columnName.slice(1)).split(' ').join('')
-    const [value, setValue] = useState(profile[key])
-    let updatedValue = {}
+
     const [privateI, setPrivateI] = useState("[HIDDEN] Private Information")
 
-  const handleChange = (e) => {
-    updatedValue = { [key]: e.target.value };
-    setValue(e.target.value);
-    setProfile((profile) => ({ ...profile, ...updatedValue }));
-  };
 
   return (
     <div className={`row sidebar-item p-3 ms-2 me-2`}>

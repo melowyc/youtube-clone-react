@@ -45,6 +45,7 @@ const Navbar = () => {
         background: "white",
         top: 0,
         justifyContent: "space-between",
+        zIndex:9999
       }}
     >
       <Link to="/" style={{ display: "flex", alignItems: "center" }}>
@@ -135,7 +136,7 @@ const Navbar = () => {
           }
           to="/profile"
         >
-          Profile
+          <button className="login_button">Profile</button>
         </Link>
       ) : (
         ""
