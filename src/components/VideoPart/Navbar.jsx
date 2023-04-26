@@ -15,9 +15,11 @@ import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   const username = localStorage.getItem("username");
+  const userType = localStorage.getItem("userType");
   const path = useLocation().pathname;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [kid, setKid] = useState(false);
 
   const logOutBtnHandler = () => {
     localStorage.clear();
@@ -31,6 +33,9 @@ const Navbar = () => {
     const local_username = localStorage.getItem("username");
     if (local_username) {
       setLogin(true);
+    }
+    if (userType === "KID") {
+      setKid(true)
     }
   }, []);
 
@@ -52,7 +57,7 @@ const Navbar = () => {
         <img src={logo} alt="logo" height={45} />
 
       </Link>
-      {login && (
+      {login && !kid && (
         <Link to="/search">
           <button className="login_button">Search</button>
         </Link>
