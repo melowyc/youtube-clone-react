@@ -59,3 +59,23 @@ body::-webkit-scrollbar {
   align-items: center;
 }
 
+
+.search-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.search-bar {
+  width: 500px;
+  height: 40px;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  margin-right: 10px;
+}
+
+

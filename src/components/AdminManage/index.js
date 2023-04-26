@@ -23,6 +23,7 @@ export default function AdminManage(userData) {
     try {
       const response = await axios.delete(`${BASE_URL}/users/${id}`);
       setMessage(response.data.message);
+      window.location.reload(); // Reload the page after user is deleted
     } catch (error) {
       console.error(error);
       setMessage("Error deleting user");

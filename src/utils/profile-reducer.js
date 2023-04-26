@@ -10,6 +10,7 @@ const profileSlice = createSlice({
         hometown: null,
         avatar: "/images/avatar/profile.png",
         likes: [],
+        follows: [],
     },
     reducers: {
         updateProfile (state, action) {
