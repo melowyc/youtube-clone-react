@@ -1,12 +1,26 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Button } from "semantic-ui-react";
+import {
+  deleteVideoComment
+} from "../../utils/fetchFromAPI";
 
-const VideoComment = ({ comments }) => {
-  console.log("video comment got comments: ", comments);
+const VideoComment = ({ oneComment, onDelete }) => {
+  // console.log("video comment got comments: ", comments);
+  const username = localStorage.getItem("username");
+  console.log("current user name: ", username)
+
+  const deleteCommentClickHandler = () => {
+    const cid = oneComment._id;
+    console.log("click handle with cid: ", cid)
+    onDelete(oneComment._id);
+    const response = deleteVideoComment(cid);
+    // setComments([...comments, commentToAdd]);
+  };
+  
   return (
     <div>
-      {comments.map((oneComment) => (
         <div class="container mt-3">
           <div class="row">
             <div class="col-md-2 d-flex flex-column justify-content-center align-items-center">
@@ -34,7 +48,7 @@ const VideoComment = ({ comments }) => {
                 </Link>
               </h6>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-9">
               <div
                 class="card"
               >
@@ -43,10 +57,11 @@ const VideoComment = ({ comments }) => {
                 </div>
               </div>
             </div>
+            <div class="col-md-1 d-flex flex-column">
+              <Button onClick={deleteCommentClickHandler}>X</Button>
+            </div>
           </div>
-
         </div>
-      ))}
     </div>
   );
 };

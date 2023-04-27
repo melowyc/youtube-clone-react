@@ -35,6 +35,12 @@ const VideoDetail = () => {
     setNewComment("");
   };
 
+  const handleCommentDelete = (id) => {
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment._id !== id)
+    );
+  };
+
   const fetchLikedData = async (username) => {
     try {
       const response = await fetch(profileRoute + "/" + username, {
@@ -117,7 +123,7 @@ const VideoDetail = () => {
     <Box minHeight="95vh">
       <Stack direction={{ xs: "column", md: "row" }}>
         <Box flex={1}>
-          <Box sx={{ width: "100%", top: "86px"}}>
+          <Box sx={{ width: "100%", top: "86px" }}>
             <ReactPlayer
               url={`https://www.youtube.com/watch?v=${id}`}
               className="react-player"
@@ -154,33 +160,40 @@ const VideoDetail = () => {
               </Stack>
             </Stack>
           </Box>
-          <Box sx={{ width: "100%"}}>
+          <Box sx={{ width: "100%" }}>
             <Typography color="#000" variant="h5" fontWeight="bold" p={2}>
               Comments
             </Typography>
-            {username && <div style={{ margin: "30px" }}>
-              <label
-                className={`d-flex justify-content-left align-items-center mt-2 mb-2`}
-              >
-                <input
-                  className="form-control w-50 d-inline ms-2"
-                  id="country"
-                  name="country"
-                  type="text"
-                  placeholder="leave your comment"
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-                />
-              </label>
-              <button
-                className="rounded-pill btn btn-primary mt-2 ps-3 pe-3 fw-bold"
-                onClick={commentClickHandler}
-              >
-                Comment!
-              </button>
-            </div>}
-            
-            <VideoComment comments={comments} />
+            {username && (
+              <div style={{ margin: "30px" }}>
+                <label
+                  className={`d-flex justify-content-left align-items-center mt-2 mb-2`}
+                >
+                  <input
+                    className="form-control w-50 d-inline ms-2"
+                    id="country"
+                    name="country"
+                    type="text"
+                    placeholder="leave your comment"
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                  />
+                </label>
+                <button
+                  className="rounded-pill btn btn-primary mt-2 ps-3 pe-3 fw-bold"
+                  onClick={commentClickHandler}
+                >
+                  Comment!
+                </button>
+              </div>
+            )}
+            {comments.map((comment) => (
+              <VideoComment
+                key={comment._id}
+                oneComment={comment}
+                onDelete={handleCommentDelete}
+              />
+            ))}
           </Box>
         </Box>
         <Box
