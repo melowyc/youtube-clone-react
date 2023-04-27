@@ -16,7 +16,6 @@ const VideoComment = ({ oneComment, onDelete }) => {
     console.log("click handle with cid: ", cid)
     onDelete(oneComment._id);
     const response = deleteVideoComment(cid);
-    // setComments([...comments, commentToAdd]);
   };
   
   return (
@@ -58,7 +57,10 @@ const VideoComment = ({ oneComment, onDelete }) => {
               </div>
             </div>
             <div class="col-md-1 d-flex flex-column">
-              <Button onClick={deleteCommentClickHandler}>X</Button>
+              {
+                username === oneComment.userName && <Button onClick={deleteCommentClickHandler}>X</Button>
+              }
+              
             </div>
           </div>
         </div>
