@@ -59,3 +59,23 @@ export const addVideoComment = async (videoId, videoComment) => {
         throw error;
     }
 }
+
+export const deleteVideoComment = async (cid) => {
+    const deleteVideoCommentUrl = `${videoRoute}/deletecomment/${cid}/`;
+    console.log("deleting video comment with cid", cid,  " using url: ", deleteVideoCommentUrl)
+
+    try {
+        const response = await axios.delete(deleteVideoCommentUrl, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            timeout: 5000, // Set a timeout to prevent the request from hanging indefinitely
+        });
+        console.log("add video comment response: ", response);
+        return response;
+
+    } catch (error) {
+        console.log("error getting video data: ", error);
+        throw error;
+    }
+}

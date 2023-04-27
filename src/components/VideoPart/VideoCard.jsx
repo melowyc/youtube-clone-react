@@ -10,7 +10,7 @@ import { useState } from "react";
 
 const VideoCard = ({ video: { id: { videoId }, snippet }, loginStatus, addLikedVideo, removeLikedVideo, liked }) => {
     const [like, setLike] = useState(liked);
-    console.log(videoId+like)
+    // console.log(videoId+like)
     const username = localStorage.getItem("username")
     // console.log(videoId+like);
     // console.log(loginStatus);
