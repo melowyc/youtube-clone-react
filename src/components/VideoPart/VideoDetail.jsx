@@ -35,6 +35,20 @@ const VideoDetail = () => {
     setNewComment("");
   };
 
+  const handleCommentUpdate = (id, updateContent) => {
+    setComments((prevComments) =>
+      {
+        const updatedComments = prevComments.map(comment => {
+          if (comment._id === id) {
+            return { ...comment, commentContent: updateContent };
+          }
+          return comment;
+        });
+        return updatedComments;
+      }
+    );
+  };
+
   const handleCommentDelete = (id) => {
     setComments((prevComments) =>
       prevComments.filter((comment) => comment._id !== id)
@@ -192,6 +206,7 @@ const VideoDetail = () => {
                 key={comment._id}
                 oneComment={comment}
                 onDelete={handleCommentDelete}
+                onUpdate={handleCommentUpdate}
               />
             ))}
           </Box>

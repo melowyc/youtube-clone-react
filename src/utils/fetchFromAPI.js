@@ -79,3 +79,23 @@ export const deleteVideoComment = async (cid) => {
         throw error;
     }
 }
+
+export const updateVideoComment = async (cid, newContent) => {
+    const updateVideoCommentUrl = `${videoRoute}/updatecomment/${cid}/`;
+    console.log("updating video comment with cid", cid,  " using url: ", updateVideoCommentUrl)
+
+    try {
+        const response = await axios.put(updateVideoCommentUrl, {"commentContent": newContent}, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            timeout: 5000, // Set a timeout to prevent the request from hanging indefinitely
+        });
+        console.log("add video comment response: ", response);
+        return response;
+
+    } catch (error) {
+        console.log("error getting video data: ", error);
+        throw error;
+    }
+}

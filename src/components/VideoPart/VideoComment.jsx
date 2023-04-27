@@ -5,9 +5,9 @@ import { useState } from "react";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Button } from "semantic-ui-react";
-import { deleteVideoComment } from "../../utils/fetchFromAPI";
+import { deleteVideoComment, updateVideoComment } from "../../utils/fetchFromAPI";
 
-const VideoComment = ({ oneComment, onDelete }) => {
+const VideoComment = ({ oneComment, onDelete, onUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedComment, setEditedComment] = useState(oneComment.commentContent);
 
@@ -39,6 +39,8 @@ const VideoComment = ({ oneComment, onDelete }) => {
     // Update the comment and toggle editing state
     setIsEditing(false);
     oneComment.commentContent = editedComment;
+    const response = updateVideoComment(oneComment._id, editedComment);
+    onUpdate(oneComment._id, editedComment);
   };
 
   return (
