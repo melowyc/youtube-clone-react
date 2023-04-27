@@ -8,6 +8,9 @@ import {Button} from "@mui/material";
 const PersonalInfoOther = ({profileData, followHandler, unfollowHandler, iffollowed}) => {
     const profile = profileData
     const [followed, setFollowed] = useState(iffollowed);
+    console.log("iffollowed"+iffollowed);
+  console.log("followed" + followed);
+
 
   const handleFollow = async () => {
 
@@ -21,8 +24,9 @@ const PersonalInfoOther = ({profileData, followHandler, unfollowHandler, iffollo
   };
 
   useEffect(() => {
+    setFollowed(iffollowed)
     console.log(followed);
-  }, [followed]);
+  }, [iffollowed]);
 
 
 
