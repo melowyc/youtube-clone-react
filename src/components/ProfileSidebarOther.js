@@ -6,7 +6,9 @@ import { useSelector } from 'react-redux';
 
 const ProfileSidebarOther = ({profileData}) => {
   const profile = useSelector((state) => state.profile);
-  const [follows, setFollows] = useState(profile.follows);
+  const [follows, setFollows] = useState([]);
+  console.log("localuserProfileInfo");
+  console.log(profile)
   const local_username = localStorage.getItem("username");
   const [iffollowed, setIffollowed] = useState(false);
 
@@ -15,12 +17,15 @@ const ProfileSidebarOther = ({profileData}) => {
       const response = await fetch(profileRoute + '/' + username, { mode: 'cors' });
       const data = await response.json();
       setFollows(data.follows);
+
       console.log("fetch follows"+username)
       console.log(data.follows)
+      
       console.log(profileData.username)
-      const followw = await (data.follows.filter((val, id) => val.username === profileData.username)).length > 0
-      setIffollowed(followw)
-      console.log(followw)
+      // const followw =  (data.follows.filter((val, id) => val.username === profileData.username)).length > 0
+      // setIffollowed(followw)
+      // console.log(followw)
+      // console.log(iffollowed)
     } catch (e) {
       console.log(e);
     }
@@ -79,8 +84,8 @@ const ProfileSidebarOther = ({profileData}) => {
       //no login
     }
 
-
-  }, []);
+    console.log(follows)
+  }, [follows]);
 
 
 
@@ -89,7 +94,7 @@ const ProfileSidebarOther = ({profileData}) => {
     <PersonalInfoOther className={`page-bg`} profileData={profileData} 
     followHandler={followHandler}
     unfollowHandler={unfollowHandler}
-      iffollowed={iffollowed}
+      iffollowed={(follows.filter((val, id) => val.username === profileData.username)).length > 0}
     />
   )
 }
